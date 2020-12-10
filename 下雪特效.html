@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            opacity: .9;
+            background-color: #ccc;
+        }
+        
+        h2 {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="2000" height="640">
+    
+    </canvas>
+    <script>
+        // 获得canvas画布
+        var canvas = document.getElementById('myCanvas')
+            // 获得2d画笔
+        var context = canvas.getContext('2d')
+
+        var arr = []
+        var timer = null
+
+        function createdian() {
+            timer = setInterval(() => {
+                var black = {}
+                black.x = Math.round(Math.random() * 1000 + 200)
+                black.y = Math.round(Math.random() * 600 - 600)
+                black.img = new Image()
+                black.img.src = "00" + Getrandom(2, 5) + ".png"
+                arr.push(black)
+            }, 100)
+        }
+
+        createdian()
+
+
+        setTimeout(() => {
+
+            setInterval(() => {
+                context.clearRect(0, 0, 1390, 700);
+                drawdian()
+            }, 15)
+
+        }, 200)
+
+        function Getrandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function drawdian() {
+            for (var i = 0; i < arr.length; i++) {
+                context.drawImage(arr[i].img, arr[i].x, arr[i].y)
+                if (arr[i].x > 500) {
+                    arr[i].x += 1
+                } else(
+                    arr[i].x -= 1
+                )
+                arr[i].y += 1
+
+            }
+        }
+    </script>
+</body>
+
+</html>
