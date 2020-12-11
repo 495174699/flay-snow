@@ -12,27 +12,36 @@
             left: 0;
             opacity: .9;
             background-color: #ccc;
-        }
-        
-        h2 {
-            background-color: red;
+            pointer-events: none;
         }
     </style>
 </head>
 
 <body>
-    <canvas id="myCanvas" width="2000" height="640">
-    
-    </canvas>
+    <canvas id="myCanvas" width="2000" height="640"></canvas>
     <script>
         // 获得canvas画布
         var canvas = document.getElementById('myCanvas')
             // 获得2d画笔
         var context = canvas.getContext('2d')
-
+            // 声明一个数组用于装雪花对象
         var arr = []
+            //定时器为null
         var timer = null
-
+            // 调用函数
+        createdian()
+            // 开启定时器,200毫秒之后开始绘制雪花
+        setTimeout(() => {
+                setInterval(() => {
+                    context.clearRect(0, 0, 1390, 700);
+                    drawdian()
+                }, 15)
+            }, 200)
+            // 随机函数 用于获取随机雪花形状
+        function Getrandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        // 利用函数创造雪花对象
         function createdian() {
             timer = setInterval(() => {
                 var black = {}
@@ -43,23 +52,7 @@
                 arr.push(black)
             }, 100)
         }
-
-        createdian()
-
-
-        setTimeout(() => {
-
-            setInterval(() => {
-                context.clearRect(0, 0, 1390, 700);
-                drawdian()
-            }, 15)
-
-        }, 200)
-
-        function Getrandom(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
+        // 绘制雪花
         function drawdian() {
             for (var i = 0; i < arr.length; i++) {
                 context.drawImage(arr[i].img, arr[i].x, arr[i].y)
@@ -69,7 +62,6 @@
                     arr[i].x -= 1
                 )
                 arr[i].y += 1
-
             }
         }
     </script>
